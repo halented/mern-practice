@@ -24,10 +24,17 @@ mongoose.connect(uri, {
 })
 const connection = mongoose.connection
 connection.once('open', () => {
-    console.log("'Ain't such a bad day, is it,' she says.");
+    console.log("'Ain't such a bad day after all,' she says.");
 })
 
-// we are ALSO creating our DB schema with mongoose. models: exercises/users
+// we are ALSO creating our DB schema with mongoose. models: exercises/users. these live in a separate folder.
+
+// here we are specifying the routes for our app. 
+const exercisesRouter = require('./routes/exercises.routes')
+const usersRouter = require('./routes/users.routes')
+
+// app.use('./exercises', exercisesRouter)
+// app.use('./users', usersRouter)
 
 
 // I was able to run this server using the command `nodemon server`. presumably similar to yarn start. 
