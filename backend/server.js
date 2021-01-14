@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const mongoose = require('mongoose')
 
 require('dotenv').config()
 
@@ -14,8 +15,22 @@ app.use(cors())
 // this line lets everybody know our server is cool to both serve and receive JSON.
 app.use(express.json())
 
+// This section actually connects our local code the mongoDB, using mongoose 
+const uri = process.env.ATLAS_URI
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+})
+const connection = mongoose.connection
+connection.once('open', () => {
+    console.log("'Ain't such a bad day, is it,' she says.");
+})
+
+// we are ALSO creating our DB schema with mongoose. models: exercises/users
+
 
 // I was able to run this server using the command `nodemon server`. presumably similar to yarn start. 
-app.listen(port, ()=>{
-    console.log(`server is a country kid hanging out in the afternoon breeze on port ${port}`)
+app.listen(port, () => {
+    console.log(`server is a country kid with a sock tan hanging out on port ${port}`)
 })
