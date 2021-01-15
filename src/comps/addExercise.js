@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-function AddExercise() {
+function AddExercise(props) {
+    // const [exercise, changeExercise] = useState({})
+
     return (
-        <div> add exercise</div>
+        <form onSubmit={(ev)=>props.saveNewExercise(ev)}>
+            <input></input>
+            <button type='submit'>Add</button>
+        </form>
     )
 }
 

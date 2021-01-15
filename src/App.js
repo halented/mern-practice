@@ -7,10 +7,24 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 function App() {
   
   const [exercises, changeExercises] = useState([])
+  const [users, changeUsers] = useState([])
 
- const saveNewUser = (ev) => {
+ const saveNewUser = (ev, username) => {
    ev.preventDefault()
-   console.log(ev.target.username);
+   fetch('http://localhost:5000/users/add', {
+     method: "POST",
+     headers: {
+       "Content-Type": 'application/json',
+       "Accept": 'application/json'
+     },
+     body: JSON.stringify({username})
+   })
+   .then(res=>res.json())
+   .then(info=>console.log(info))
+ }
+
+ const saveNewExercise = (ev) => {
+  ev.preventDefault()
  }
 
   return (
@@ -20,7 +34,7 @@ function App() {
           <AddUser saveNewUser={saveNewUser}/>
         </Route>
         <Route path='/addExercise'>
-          <AddExercise />
+          <AddExercise saveNewExercise={saveNewExercise}/>
         </Route>
         <Route path='/'>
           <div className="App">
