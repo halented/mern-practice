@@ -67,7 +67,7 @@ router.route('/update/:id').post((req, res) => {
 
             // an async inside of an async, wowie
             ex.save()
-                .then(res => res.json("Changes Saved!"))
+                .then(exercise => res.json("Changes Saved!"))
                 .catch(err => res.json("Error! Could not save change. " + err))
         })
         .catch(err => res.json("Error! Did not locate user. " + err))
