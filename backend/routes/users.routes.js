@@ -1,3 +1,5 @@
+// this would be equivalent to a controller, sort of. inside the routes file is where you define what happens in the backend for each route. 
+
 // express router
 const router = require('express').Router()
 // mongoose router
@@ -21,10 +23,7 @@ router.route('/add').post((req, res) => {
 
     //save here is from mongoose
     newUser.save()
-        .then((user) => {
-            console.log(user);
-            return res.json("User added")
-        })
+        .then((user) => res.json("User added"))
         .catch(err => res.status(400).json('Error: ' + err))
 })
 

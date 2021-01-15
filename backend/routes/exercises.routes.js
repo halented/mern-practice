@@ -20,11 +20,8 @@ router.route('/').get((req, res) => {
         })
 })
 
+// ADD NEW EXERCISE
 router.route('/add').post((req, res) => {
-    // request and response here. not super clear on what these are. gonna log it
-    console.log("request from inside the add post route for exercises", req);
-    console.log("response from inside the add post route for exercises", res);
-
     // formulate the posting data
     const { username, description, duration, date } = req.body
     const newE = new Exercise({
@@ -34,9 +31,47 @@ router.route('/add').post((req, res) => {
         date: Date.parse(date)
     })
     // some sort of mongoose method
-    Exercise.save(newE)
-        .then(() => res.json(newE))
-        .catch(err => console.log)
+    newE.save()
+        .then((exercise) => res.json("Success! Added Exercise"))
+        .catch(err => {
+            console.log(err)
+            return res.json("Failure! Could not add exercise. Error: " + err)
+        })
 })
+
+// FIND SINGLE EXERCISE
+router.route('/:id').get((req, res) => {
+    Exercise.findById(req.params.id)
+        .then(ex => res.json(ex))
+        .catch(err => res.json("Error! Did not locate user. " + err))
+})
+
+// DELETE EXERCISE
+router.route('/:id').delete((req, res) => {
+    Exercise.findByIdAndDelete(req.params.id)
+        .then(() => res.json("Yeeted"))
+        .catch(err => res.json("Error! Exercise unable to be yote. " + err))
+})
+
+// UPDATE EXERCISE
+router.route('/update/:id').post((req, res) => {
+    // first, find the instance
+    Exercise.findById(req.params.id)
+        .then(ex => {
+            // next, update its attributes. (is there a way to do this more easily? and what if the request doesn't send new details for one attribute or another?)
+            const { username, description, duration, date } = req.body
+            ex.username = username
+            ex.description = description
+            ex.duration = duration
+            ex.date = date
+
+            // an async inside of an async, wowie
+            ex.save()
+                .then(res => res.json("Changes Saved!"))
+                .catch(err => res.json("Error! Could not save change. " + err))
+        })
+        .catch(err => res.json("Error! Did not locate user. " + err))
+})
+
 
 module.exports = router
