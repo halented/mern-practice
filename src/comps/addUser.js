@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function AddUserPage(props) {
+function AddUser(props) {
 
     const [username, changeUsername] = useState("")
 
@@ -19,4 +19,4 @@ function AddUserPage(props) {
     )
 }
 
-export default AddUserPage
+export default AddUser

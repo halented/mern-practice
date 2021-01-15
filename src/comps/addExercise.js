@@ -1,11 +1,21 @@
 import React, { useState } from 'react'
 
 function AddExercise(props) {
-    // const [exercise, changeExercise] = useState({})
+
+    const dynamicChangeFunc = (ev) => {
+        console.log(ev)
+        // not sure how this works but it is possible to do and im...gonna
+    }
 
     return (
         <form onSubmit={(ev)=>props.saveNewExercise(ev)}>
-            <input></input>
+            <input name='description' placeholder='description' onChange={dynamicChangeFunc}></input>
+            <select>
+                {props.users.map(user=><option>{user.username}</option>)}
+            </select>
+            <input name='username' placeholder='username' onChange={dynamicChangeFunc}></input>
+            <input name='duration' placeholder='duration' type='number' onChange={dynamicChangeFunc}></input>
+            <input name='date' placeholder='date' type='date' onChange={dynamicChangeFunc}></input>
             <button type='submit'>Add</button>
         </form>
     )

@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 function App() {
   
   const [exercises, changeExercises] = useState([])
+  // should grab users in a useEffect and pass that down to addExercise
   const [users, changeUsers] = useState([])
 
  const saveNewUser = (ev, username) => {
@@ -34,7 +35,7 @@ function App() {
           <AddUser saveNewUser={saveNewUser}/>
         </Route>
         <Route path='/addExercise'>
-          <AddExercise saveNewExercise={saveNewExercise}/>
+          <AddExercise saveNewExercise={saveNewExercise} users={users} />
         </Route>
         <Route path='/'>
           <div className="App">
