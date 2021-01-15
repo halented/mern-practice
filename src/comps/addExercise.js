@@ -2,6 +2,14 @@ import React, { useState } from 'react'
 import { Form, Input, Button, DatePicker, Select } from 'antd';
 
 const { Option } = Select
+const layout = {
+    labelCol: {
+      span: 8,
+    },
+    wrapperCol: {
+      span: 16,
+    },
+  };
 
 
 function AddExercise(props) {
@@ -11,20 +19,20 @@ function AddExercise(props) {
     const [error, setError] = useState(0)
 
     const dynamicChangeFunc = (ev) => {
-        let tempEx = {...exercise}
+        let tempEx = { ...exercise }
 
         // select event is weird, ant design made it so 
         // we dont actually get an event just the value
-        typeof(ev) === "object" ? 
-        tempEx[ev.target.name] = ev.target.value
-        :
-        tempEx.username = ev
+        typeof (ev) === "object" ?
+            tempEx[ev.target.name] = ev.target.value
+            :
+            tempEx.username = ev
 
         setExercise(tempEx)
     }
 
     const validator = (ev) => {
-        const { description, duration, date, username} = exercise
+        const { description, duration, date, username } = exercise
         console.log(exercise)
         console.log(ev);
 
@@ -40,7 +48,9 @@ function AddExercise(props) {
     return (
         <>
             {error ? <p style={{ color: "red" }}>{error}</p> : <p>Add exercise</p>}
-            <Form onFinish={validator}>
+            <Form
+                {...layout} 
+                onFinish={validator}>
                 <Form.Item>
                     <Input
                         name='description'
@@ -61,22 +71,22 @@ function AddExercise(props) {
                     </Select>
                 </Form.Item>
                 <Form.Item>
-                    <input
+                    <Input
                         name='duration'
                         placeholder='duration'
                         type='number'
                         onChange={dynamicChangeFunc}
                         value={exercise.duration}>
-                    </input>
+                    </Input>
                 </Form.Item>
                 <Form.Item>
-                    <input
+                    <Input
                         name='date'
                         placeholder='date'
                         type='date'
                         onChange={dynamicChangeFunc}
                         value={exercise.date}>
-                    </input>
+                    </Input>
                 </Form.Item>
                 <Form.Item>
                     <Button type='primary' htmlType='submit'>Add</Button>
