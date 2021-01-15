@@ -4,7 +4,6 @@ function AddExercise(props) {
 
     const dynamicChangeFunc = (ev) => {
         console.log(ev)
-        // not sure how this works but it is possible to do and im...gonna
     }
 
     return (

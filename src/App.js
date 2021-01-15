@@ -4,15 +4,27 @@ import AddExercise from './comps/addExercise'
 import { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
+const BASE_URL = 'http://localhost:5000'
+
 function App() {
   
   const [exercises, changeExercises] = useState([])
-  // should grab users in a useEffect and pass that down to addExercise
   const [users, changeUsers] = useState([])
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/users`)
+    .then(res=>res.json())
+    .then(users=>changeUsers(users))
+    fetch(`${BASE_URL}/exercises`)
+    .then(res=>res.json())
+    .then(exercises=>changeExercises(exercises))
+  }, [])
+
+
 
  const saveNewUser = (ev, username) => {
    ev.preventDefault()
-   fetch('http://localhost:5000/users/add', {
+   fetch(`${BASE_URL}/users/add`, {
      method: "POST",
      headers: {
        "Content-Type": 'application/json',
@@ -40,7 +52,12 @@ function App() {
         <Route path='/'>
           <div className="App">
             <Link to='/addUser'>Add a New User</Link>
+            <br></br>
             <Link to='/addExercise'>Add a New Exercise</Link>
+            <br></br>
+            <ul>
+              {exercises.map(ex=><li>{ex.description}</li>)}
+            </ul>
           </div>
         </Route>
       </Switch>
