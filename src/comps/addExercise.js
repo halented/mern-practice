@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Button, DatePicker } from 'antd'
 
 function AddExercise(props) {
 
@@ -25,7 +26,7 @@ function AddExercise(props) {
 
     return (
         <>
-            {error ? <p style={{color:"red"}}>{error}</p> : <p>"Add exercise"</p>}
+            {error ? <p style={{color:"red"}}>{error}</p> : <p>Add exercise</p>}
             <form onSubmit={validator}>
                 <input name='description' placeholder='description' onChange={dynamicChangeFunc} value={exercise.description}></input>
                 <select name='username' onChange={dynamicChangeFunc} value={exercise.username}>
@@ -33,7 +34,7 @@ function AddExercise(props) {
                 </select>
                 <input name='duration' placeholder='duration' type='number' onChange={dynamicChangeFunc} value={exercise.duration}></input>
                 <input name='date' placeholder='date' type='date' onChange={dynamicChangeFunc} value={exercise.date}></input>
-                <button type='submit'>Add</button>
+                <Button type='submit' type='primary'>Add</Button>
             </form>
         </>
     )
