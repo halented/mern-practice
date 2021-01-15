@@ -36,8 +36,9 @@ function App() {
    .then(info=>console.log(info))
  }
 
- const saveNewExercise = (ev) => {
+ const saveNewExercise = (ev, exercise) => {
   ev.preventDefault()
+  console.log(exercise)
  }
 
   return (
@@ -56,7 +57,7 @@ function App() {
             <Link to='/addExercise'>Add a New Exercise</Link>
             <br></br>
             <ul>
-              {exercises.map(ex=><li>{ex.description}</li>)}
+              {exercises.map(ex=><li key={ex._id}>{ex.description}</li>)}
             </ul>
           </div>
         </Route>
