@@ -36,9 +36,17 @@ function App() {
    .then(info=>console.log(info))
  }
 
- const saveNewExercise = (ev, exercise) => {
-  ev.preventDefault()
-  console.log(exercise)
+ const saveNewExercise = (exercise) => {
+  fetch(`${BASE_URL}/exercises/add`, {
+    method: "POST",
+    headers: {
+      "Content-Type": 'application/json',
+      "Accept": 'application/json'
+    },
+    body: JSON.stringify(exercise)
+  })
+  .then(res=>res.json())
+  .then(info=>console.log(info))
  }
 
   return (
