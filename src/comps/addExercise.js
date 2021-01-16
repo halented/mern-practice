@@ -47,14 +47,22 @@ function AddExercise(props) {
     }
 
     const updateForm = (eventInfo) => {
+        // debugger
+        // should be a switch
+        console.log(eventInfo);
         if (typeof (eventInfo) === "object") {
             form.setFieldsValue({
                 [eventInfo.target.id]: eventInfo.target.value
             })
         }
-        else {
+        else if (typeof (eventInfo) === 'string') {
             form.setFieldsValue({
                 username: eventInfo
+            })
+        }
+        else {
+            form.setFieldsValue({
+                duration: eventInfo
             })
         }
     }
@@ -95,21 +103,21 @@ function AddExercise(props) {
                 <Form.Item
                     label="duration"
                     name='duration'
-                    placeholder='duration'
-                    onChange={updateForm}>
-                    <InputNumber />
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Select zero if duration is not applicable'
+                        }
+                    ]}>
+                    <InputNumber onChange={updateForm} />
                 </Form.Item>
-                <Form.Item>
-                    <Input
-                        name='date'
-                        placeholder='date'
-                        type='date'
-                        onChange={dynamicChangeFunc}
-                        value={exercise.date}>
-                    </Input>
+                <Form.Item
+                    label="date"
+                    name='date'>
+                    <DatePicker onChange={updateForm} />
                 </Form.Item>
-                <Form.Item>
-                    <Button type='primary' htmlType='submit'>Add</Button>
+                <Form.Item label='submit'>
+                    <Button type='primary' htmlType='submit'> ♥️ </Button>
                 </Form.Item>
             </Form>
         </>
