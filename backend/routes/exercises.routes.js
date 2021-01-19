@@ -32,7 +32,7 @@ router.route('/add').post((req, res) => {
     })
     // some sort of mongoose method
     newE.save()
-        .then((exercise) => res.json("Success! Added Exercise"))
+        .then((exercise) => res.json(exercise))
         .catch(err => {
             console.log(err)
             return res.json("Failure! Could not add exercise. Error: " + err)
