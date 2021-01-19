@@ -1,21 +1,45 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
+import { PageHeader, Form, Input, Button } from 'antd'
 
-function AddUser(props) {
+function AddUser({ saveNewUser }) {
 
-    const [username, changeUsername] = useState("")
+    const history = useHistory()
+    const layout = {
+        labelCol: {
+            span: 8,
+        },
+        wrapperCol: {
+            span: 14,
+        },
+    };
 
     return (
-        <form onSubmit={(ev)=>props.saveNewUser(ev, username)}>
-            <input 
-                placeholder='username' 
-                name='username' 
-                value={username} 
-                onChange={(ev)=>{
-                    changeUsername(ev.target.value)
-                }}>
-            </input>
-            <button type='submit'>Add</button>
-        </form>
+        <>
+            <PageHeader
+                className="site-page-header"
+                onBack={() => history.push('/')}
+                title="Add New User"
+            />
+            <Form onFinish={(eventInfo) => saveNewUser(eventInfo)} {...layout}>
+                <Form.Item
+                    name='username'
+                    label='Username'
+                    rules={[
+                        {
+                            required: true,
+                            message: 'A username is required',
+                        }
+                    ]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                    <Button type='primary' htmlType='Submit'>
+                        Add
+                    </Button>
+                </Form.Item>
+            </Form>
+        </>
     )
 }
 

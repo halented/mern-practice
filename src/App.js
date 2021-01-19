@@ -24,15 +24,14 @@ function App() {
 
 
 
-  const saveNewUser = (ev, username) => {
-    ev.preventDefault()
+  const saveNewUser = (username) => {
     fetch(`${BASE_URL}/users/add`, {
       method: "POST",
       headers: {
         "Content-Type": 'application/json',
         "Accept": 'application/json'
       },
-      body: JSON.stringify({ username })
+      body: JSON.stringify(username)
     })
       .then(res => res.json())
       .then(info => console.log(info))
