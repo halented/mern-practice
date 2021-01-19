@@ -62,7 +62,7 @@ function App() {
             <AddExercise saveNewExercise={saveNewExercise} users={users} />
           </Route>
           <Route path='/'>
-            <Home exercises={exercises} />
+            <Home exercises={exercises} users={users}/>
           </Route>
         </Switch>
       </Router>
