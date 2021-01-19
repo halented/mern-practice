@@ -2,6 +2,7 @@ import './App.css';
 import AddUser from './comps/addUser'
 import AddExercise from './comps/addExercise'
 import Home from './comps/home'
+import EditExercise from './comps/editExercise';
 import { useState, useEffect } from 'react'
 import { Switch, Route, useHistory, withRouter } from 'react-router-dom'
 
@@ -13,6 +14,7 @@ function App() {
   const [exercises, changeExercises] = useState([])
   const [users, changeUsers] = useState([])
   const [alert, changeAlert] = useState(false)
+  const [selectedExercise, changeSelectedExercise] = useState({})
   const history = useHistory()
 
   useEffect(() => {
@@ -62,19 +64,32 @@ function App() {
       })
   }
 
+  const selectExercise = (exercise) => {
+    changeSelectedExercise(exercise)
+    history.push(`/edit/${exercise._id}`)
+  }
+
   return (
     <>
-        <Switch>
-          <Route path='/addUser'>
-            <AddUser saveNewUser={saveNewUser} />
-          </Route>
-          <Route path='/addExercise'>
-            <AddExercise saveNewExercise={saveNewExercise} users={users} />
-          </Route>
-          <Route path='/'>
-            <Home exercises={exercises} users={users} alert={alert}/>
-          </Route>
-        </Switch>
+      <Switch>
+        <Route path='/addUser'>
+          <AddUser saveNewUser={saveNewUser} />
+        </Route>
+        <Route path='/addExercise'>
+          <AddExercise saveNewExercise={saveNewExercise} users={users} />
+        </Route>
+        <Route path='/edit/:id'>
+          <EditExercise exercise={selectedExercise} />
+        </Route>
+        <Route path='/'>
+          <Home
+            exercises={exercises}
+            users={users}
+            alert={alert}
+            sendClickedExercise={selectExercise}
+          />
+        </Route>
+      </Switch>
     </>
   );
 }

@@ -3,7 +3,7 @@ import { Row, Col, PageHeader, Button, Alert } from 'antd'
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 
-function Home({ exercises, users, alert }) {
+function Home({ exercises, users, alert, sendClickedExercise }) {
     return (
         <>
             <PageHeader
@@ -37,7 +37,16 @@ function Home({ exercises, users, alert }) {
                 <Col span={12}>
                     <h3> Available exercises</h3>
                     <ul style={{ padding: '24px', paddingTop: '0px', listStyle: 'none' }}>
-                        {exercises.map(ex => <li key={ex._id}>{ex.description}</li>)}
+                        {exercises.map(ex => {
+                            return (
+                                <li
+                                    key={ex._id}
+                                    className='spoofLink'
+                                    onClick={()=>sendClickedExercise(ex)}>
+                                    {ex.description}
+                                </li>
+                            )
+                        })}
                     </ul>
                 </Col>
             </Row>

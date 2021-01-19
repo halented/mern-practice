@@ -37,3 +37,11 @@
     transform: rotate(360deg);
   }
 }
+
+.spoofLink {
+  color: #1890ff;
+}
+
+.spoofLink:hover{
+  cursor: pointer;
+}
