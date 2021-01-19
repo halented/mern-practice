@@ -17,8 +17,8 @@ function AddExercise(props) {
     const [form] = Form.useForm()
 
     const submitForm = (ev) => {
-        // convert the date to unix for mongodb
-        ev.date = ev.date.valueOf()
+        // convert the date for mongodb
+        ev.date = ev.date.format()
         // send it off & hope for the best
         props.saveNewExercise(ev)
     }
