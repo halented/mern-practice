@@ -1,6 +1,14 @@
 import React from 'react'
-import { Form, Input, Button, DatePicker, Select, InputNumber } from 'antd';
-import { Link } from 'react-router-dom'
+import {
+    Form,
+    Input,
+    Button,
+    DatePicker,
+    Select,
+    InputNumber,
+    PageHeader
+} from 'antd';
+import { useHistory } from 'react-router-dom'
 
 const { Option } = Select
 const layout = {
@@ -16,6 +24,7 @@ const layout = {
 function AddExercise(props) {
 
     const [form] = Form.useForm()
+    const history = useHistory()
 
     const submitForm = (ev) => {
         // convert the date for mongodb
@@ -50,70 +59,67 @@ function AddExercise(props) {
         }
     }
 
-    const goBack = (ev) => {
-        console.log(ev);
-    }
-
     return (
-        <Form {...layout} onFinish={(ev) => submitForm(ev)} label="Add Exercise" form={form} className='form'>
-            <Form.Item label='Add New Exercise' style={{ fontWeight: "bold" }}></Form.Item>
-            <Form.Item
-                name='description'
-                onChange={updateForm}
-                label='description'
-                rules={[
-                    {
-                        required: true,
-                        message: 'A description is required',
-                    }
-                ]}>
-                <Input />
-            </Form.Item>
-            <Form.Item
-                name='username'
-                label='username'
-                rules={[
-                    {
-                        required: true,
-                        message: 'A username is required',
-                    }
-                ]}>
-                <Select
-                    placeholder='Select One'
-                    onChange={updateForm}>
-                    {props.users.map(user =>
-                        <Option key={user.username}>{user.username}</Option>
-                    )}
-                </Select>
-            </Form.Item>
-            <Form.Item
-                label="duration"
-                name='duration'
-                rules={[
-                    {
-                        required: true,
-                        message: 'Select zero if duration is not applicable'
-                    }
-                ]}>
-                <InputNumber onChange={updateForm} />
-            </Form.Item>
-            <Form.Item
-                label="date"
-                name='date'>
-                <DatePicker onChange={updateForm} />
-            </Form.Item>
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button type='primary' htmlType='submit'>
-                    Submit
+        <>
+            <PageHeader
+                className="site-page-header"
+                onBack={() => history.push('/')}
+                title="Add New Exercise"
+                subTitle="Please fill all fields"
+            />
+            <Form {...layout} onFinish={(ev) => submitForm(ev)} label="Add Exercise" form={form} className='form'>
+                <Form.Item
+                    name='description'
+                    onChange={updateForm}
+                    label='description'
+                    rules={[
+                        {
+                            required: true,
+                            message: 'A description is required',
+                        }
+                    ]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    name='username'
+                    label='username'
+                    rules={[
+                        {
+                            required: true,
+                            message: 'A username is required',
+                        }
+                    ]}>
+                    <Select
+                        placeholder='Select One'
+                        onChange={updateForm}>
+                        {props.users.map(user =>
+                            <Option key={user.username}>{user.username}</Option>
+                        )}
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    label="duration"
+                    name='duration'
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Select zero if duration is not applicable'
+                        }
+                    ]}>
+                    <InputNumber onChange={updateForm} />
+                </Form.Item>
+                <Form.Item
+                    label="date"
+                    name='date'>
+                    <DatePicker onChange={updateForm} />
+                </Form.Item>
+                <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                    <Button type='primary' htmlType='submit'>
+                        Submit
                 </Button>
-                {" "}
-                <Link to='/'>
-                    <Button htmlType="button" onClick={goBack}>
-                        Go Back
-                    </Button>
-                </Link>
-            </Form.Item>
-        </Form>
+                </Form.Item>
+            </Form>
+        </>
     )
 }
 
