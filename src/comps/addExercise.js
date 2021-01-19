@@ -67,7 +67,12 @@ function AddExercise(props) {
                 title="Add New Exercise"
                 subTitle="Please fill out all fields"
             />
-            <Form {...layout} onFinish={(ev) => submitForm(ev)} label="Add Exercise" form={form} className='form'>
+            <Form
+                {...layout}
+                onFinish={(ev) => submitForm(ev)}
+                label="Add Exercise"
+                form={form}
+                className='form'>
                 <Form.Item
                     name='description'
                     onChange={updateForm}

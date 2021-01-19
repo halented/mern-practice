@@ -4,6 +4,7 @@ import { PageHeader, Form, Input, Button } from 'antd'
 
 function AddUser({ saveNewUser }) {
 
+    const [form] = Form.useForm()
     const history = useHistory()
     const layout = {
         labelCol: {
@@ -12,7 +13,13 @@ function AddUser({ saveNewUser }) {
         wrapperCol: {
             span: 14,
         },
-    };
+    }
+
+    const updateForm = (e) => {
+        form.setFieldsValue({
+            username: e.target.value
+        })
+    }
 
     return (
         <>
@@ -21,8 +28,12 @@ function AddUser({ saveNewUser }) {
                 onBack={() => history.push('/')}
                 title="Add New User"
             />
-            <Form onFinish={(eventInfo) => saveNewUser(eventInfo)} {...layout}>
+            <Form
+                {...layout}
+                onFinish={(eventInfo) => saveNewUser(eventInfo)}
+                form={form}>
                 <Form.Item
+                    onChange={updateForm}
                     name='username'
                     label='Username'
                     rules={[

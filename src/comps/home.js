@@ -26,13 +26,13 @@ function Home({ exercises, users }) {
             <Row>
 
                 <Col span={12}>
-                    <h3>current users</h3>
+                    <h3>Available users</h3>
                     <ul style={{ padding: '24px', paddingTop: '0px', listStyle: 'none' }}>
                         {users.map(user => <li key={user._id}>{user.username}</li>)}
                     </ul>
                 </Col>
                 <Col span={12}>
-                    <h3> current exercises</h3>
+                    <h3> Available exercises</h3>
                     <ul style={{ padding: '24px', paddingTop: '0px', listStyle: 'none' }}>
                         {exercises.map(ex => <li key={ex._id}>{ex.description}</li>)}
                     </ul>
