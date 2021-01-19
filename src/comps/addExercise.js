@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Button, DatePicker, Select, InputNumber } from 'antd';
+import { Link } from 'react-router-dom'
 
 const { Option } = Select
 const layout = {
@@ -47,6 +48,10 @@ function AddExercise(props) {
                 duration: eventInfo
             })
         }
+    }
+
+    const goBack = (ev) => {
+        console.log(ev);
     }
 
     return (
@@ -98,7 +103,15 @@ function AddExercise(props) {
                 <DatePicker onChange={updateForm} />
             </Form.Item>
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                <Button type='primary' htmlType='submit'> Submit</Button>
+                <Button type='primary' htmlType='submit'>
+                    Submit
+                </Button>
+                {" "}
+                <Link to='/'>
+                    <Button htmlType="button" onClick={goBack}>
+                        Go Back
+                    </Button>
+                </Link>
             </Form.Item>
         </Form>
     )
