@@ -3,16 +3,15 @@ import AddUser from './comps/addUser'
 import AddExercise from './comps/addExercise'
 import Home from './comps/home'
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Link, useHistory } from 'react-router-dom'
-import { Row, Col, PageHeader } from 'antd'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 const BASE_URL = 'http://localhost:5000'
+
 
 function App() {
 
   const [exercises, changeExercises] = useState([])
   const [users, changeUsers] = useState([])
-  const history = useHistory()
 
   useEffect(() => {
     fetch(`${BASE_URL}/users`)
@@ -63,7 +62,7 @@ function App() {
             <AddExercise saveNewExercise={saveNewExercise} users={users} />
           </Route>
           <Route path='/'>
-            <Home exercises={exercises}/>
+            <Home exercises={exercises} />
           </Route>
         </Switch>
       </Router>
