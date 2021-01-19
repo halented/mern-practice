@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Form, Input, Button, DatePicker, Select, InputNumber } from 'antd';
 
 const { Option } = Select
@@ -14,46 +14,28 @@ const layout = {
 
 function AddExercise(props) {
 
-    const blankExercise = { description: "", username: props.users[0] ? props.users[0].username : "Select One", duration: 0, date: "" }
     const [form] = Form.useForm()
-    const [exercise, setExercise] = useState(blankExercise)
-    const [error, setError] = useState(0)
 
-    const dynamicChangeFunc = (ev) => {
-        let tempEx = { ...exercise }
-
-        // select event is weird, ant design made it so 
-        // we dont actually get an event just the value
-        typeof (ev) === "object" ?
-            tempEx[ev.target.name] = ev.target.value
-            :
-            tempEx.username = ev
-
-        setExercise(tempEx)
-    }
-
-    const validator = (ev) => {
-        const { description, duration, date, username } = exercise
-        console.log(exercise)
-        console.log(ev);
-
-        if (description.length && duration > 0 && date.length && username !== "Select One") {
-            setError("Accepted")
-            props.saveNewExercise(exercise)
-        }
-        else {
-            setError("No values may be blank")
-        }
+    const submitForm = (ev) => {
+        // convert the date to unix for mongodb
+        ev.date = ev.date.valueOf()
+        // send it off & hope for the best
+        props.saveNewExercise(ev)
     }
 
     const updateForm = (eventInfo) => {
-        // debugger
-        // should be a switch
-        console.log(eventInfo);
+        // controlling form with antd is pretty awkward
         if (typeof (eventInfo) === "object") {
-            form.setFieldsValue({
-                [eventInfo.target.id]: eventInfo.target.value
-            })
+            if (eventInfo._isAMomentObject) {
+                form.setFieldsValue({
+                    date: eventInfo.get()
+                })
+            }
+            else {
+                form.setFieldsValue({
+                    [eventInfo.target.id]: eventInfo.target.value
+                })
+            }
         }
         else if (typeof (eventInfo) === 'string') {
             form.setFieldsValue({
@@ -70,7 +52,7 @@ function AddExercise(props) {
     return (
         <>
             <h1>add exercisio</h1>
-            <Form {...layout} onFinish={validator} label="Add Exercise" form={form}>
+            <Form {...layout} onFinish={(ev) => submitForm(ev)} label="Add Exercise" form={form}>
                 <Form.Item
                     name='description'
                     onChange={updateForm}
