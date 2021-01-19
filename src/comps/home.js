@@ -1,9 +1,9 @@
 import React from 'react'
-import { Row, Col, PageHeader, Button } from 'antd'
+import { Row, Col, PageHeader, Button, Alert } from 'antd'
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 
-function Home({ exercises, users }) {
+function Home({ exercises, users, alert }) {
     return (
         <>
             <PageHeader
@@ -11,6 +11,9 @@ function Home({ exercises, users }) {
                 title="Welcome to Some Weird Website"
                 subTitle="When you're here, you're fu-"
             />
+            <Row>
+                {alert ? <Alert message="Success" type='success' /> : null}
+            </Row>
             <Row>
                 <Col span={12}>
                     <Button>

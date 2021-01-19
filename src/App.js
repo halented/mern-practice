@@ -3,7 +3,7 @@ import AddUser from './comps/addUser'
 import AddExercise from './comps/addExercise'
 import Home from './comps/home'
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, useHistory, withRouter } from 'react-router-dom'
+import { Switch, Route, useHistory, withRouter } from 'react-router-dom'
 
 const BASE_URL = 'http://localhost:5000'
 
@@ -12,6 +12,7 @@ function App() {
 
   const [exercises, changeExercises] = useState([])
   const [users, changeUsers] = useState([])
+  const [alert, changeAlert] = useState(false)
   const history = useHistory()
 
   useEffect(() => {
@@ -35,7 +36,12 @@ function App() {
       body: JSON.stringify(username)
     })
       .then(res => res.json())
-      .then(info => console.log(info))
+      .then(info => {
+        let newGroup = [...users, info]
+        changeUsers(newGroup)
+        changeAlert(true)
+        history.push('/')
+      })
   }
 
   const saveNewExercise = (exercise) => {
@@ -49,9 +55,9 @@ function App() {
     })
       .then(res => res.json())
       .then(info => {
-        console.log(info);
         let newGroup = [...exercises, info]
         changeExercises(newGroup)
+        changeAlert(true)
         history.push('/')
       })
   }
@@ -66,7 +72,7 @@ function App() {
             <AddExercise saveNewExercise={saveNewExercise} users={users} />
           </Route>
           <Route path='/'>
-            <Home exercises={exercises} users={users}/>
+            <Home exercises={exercises} users={users} alert={alert}/>
           </Route>
         </Switch>
     </>
