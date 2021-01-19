@@ -3,7 +3,7 @@ import AddUser from './comps/addUser'
 import AddExercise from './comps/addExercise'
 import Home from './comps/home'
 import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, useHistory, withRouter } from 'react-router-dom'
 
 const BASE_URL = 'http://localhost:5000'
 
@@ -12,6 +12,7 @@ function App() {
 
   const [exercises, changeExercises] = useState([])
   const [users, changeUsers] = useState([])
+  const history = useHistory()
 
   useEffect(() => {
     fetch(`${BASE_URL}/users`)
@@ -47,12 +48,16 @@ function App() {
       body: JSON.stringify(exercise)
     })
       .then(res => res.json())
-      .then(info => console.log(info))
+      .then(info => {
+        console.log(info);
+        let newGroup = [...exercises, info]
+        changeExercises(newGroup)
+        history.push('/')
+      })
   }
 
   return (
     <>
-      <Router>
         <Switch>
           <Route path='/addUser'>
             <AddUser saveNewUser={saveNewUser} />
@@ -64,9 +69,8 @@ function App() {
             <Home exercises={exercises} users={users}/>
           </Route>
         </Switch>
-      </Router>
     </>
   );
 }
 
-export default App;
+export default withRouter(App);
