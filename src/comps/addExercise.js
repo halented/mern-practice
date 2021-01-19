@@ -7,7 +7,7 @@ const layout = {
         span: 8,
     },
     wrapperCol: {
-        span: 16,
+        span: 14,
     },
 };
 
@@ -50,59 +50,57 @@ function AddExercise(props) {
     }
 
     return (
-        <>
-            <h1>add exercisio</h1>
-            <Form {...layout} onFinish={(ev) => submitForm(ev)} label="Add Exercise" form={form}>
-                <Form.Item
-                    name='description'
-                    onChange={updateForm}
-                    label='description'
-                    rules={[
-                        {
-                            required: true,
-                            message: 'A description is required',
-                        }
-                    ]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item
-                    name='username'
-                    label='username'
-                    rules={[
-                        {
-                            required: true,
-                            message: 'A username is required',
-                        }
-                    ]}>
-                    <Select
-                        placeholder='Select One'
-                        onChange={updateForm}>
-                        {props.users.map(user =>
-                            <Option key={user.username}>{user.username}</Option>
-                        )}
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                    label="duration"
-                    name='duration'
-                    rules={[
-                        {
-                            required: true,
-                            message: 'Select zero if duration is not applicable'
-                        }
-                    ]}>
-                    <InputNumber onChange={updateForm} />
-                </Form.Item>
-                <Form.Item
-                    label="date"
-                    name='date'>
-                    <DatePicker onChange={updateForm} />
-                </Form.Item>
-                <Form.Item label='submit'>
-                    <Button type='primary' htmlType='submit'> ♥️ </Button>
-                </Form.Item>
-            </Form>
-        </>
+        <Form {...layout} onFinish={(ev) => submitForm(ev)} label="Add Exercise" form={form} className='form'>
+            <Form.Item label='Add New Exercise' style={{ fontWeight: "bold" }}></Form.Item>
+            <Form.Item
+                name='description'
+                onChange={updateForm}
+                label='description'
+                rules={[
+                    {
+                        required: true,
+                        message: 'A description is required',
+                    }
+                ]}>
+                <Input />
+            </Form.Item>
+            <Form.Item
+                name='username'
+                label='username'
+                rules={[
+                    {
+                        required: true,
+                        message: 'A username is required',
+                    }
+                ]}>
+                <Select
+                    placeholder='Select One'
+                    onChange={updateForm}>
+                    {props.users.map(user =>
+                        <Option key={user.username}>{user.username}</Option>
+                    )}
+                </Select>
+            </Form.Item>
+            <Form.Item
+                label="duration"
+                name='duration'
+                rules={[
+                    {
+                        required: true,
+                        message: 'Select zero if duration is not applicable'
+                    }
+                ]}>
+                <InputNumber onChange={updateForm} />
+            </Form.Item>
+            <Form.Item
+                label="date"
+                name='date'>
+                <DatePicker onChange={updateForm} />
+            </Form.Item>
+            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                <Button type='primary' htmlType='submit'> Submit</Button>
+            </Form.Item>
+        </Form>
     )
 }
 
