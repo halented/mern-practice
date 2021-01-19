@@ -61,12 +61,12 @@ function AddExercise(props) {
 
     return (
         <>
-            <PageHeader
-                className="site-page-header"
-                onBack={() => history.push('/')}
-                title="Add New Exercise"
-                subTitle="Please fill all fields"
-            />
+                <PageHeader
+          className="site-page-header"
+          onBack={() => history.push('/')}
+          title="Add New Exercise"
+          subTitle="Please fill all fields"
+        />
             <Form {...layout} onFinish={(ev) => submitForm(ev)} label="Add Exercise" form={form} className='form'>
                 <Form.Item
                     name='description'
