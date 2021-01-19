@@ -21,3 +21,13 @@ code {
 .site-page-header {
   border: 1px solid rgb(235, 237, 240);
 }
+
+/* lil more padding on the homepage for space */
+.ant-row {
+  padding: 24px;
+}
+
+/* lil less margin on the form to compress */
+.ant-form-item {
+  margin-bottom: 0px;
+}

@@ -1,5 +1,6 @@
 import React from 'react'
-import { Row, Col, PageHeader } from 'antd'
+import { Row, Col, PageHeader, Button } from 'antd'
+import { ArrowRightOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 
 function Home({ exercises }) {
@@ -12,13 +13,17 @@ function Home({ exercises }) {
             />
             <Row>
                 <Col span={12}>
-                    <Link to='/addUser'>Add a New User</Link>
+                    <Button>
+                        <Link to='/addUser'>Add a New User <ArrowRightOutlined /></Link>
+                    </Button>
                 </Col>
                 <Col span={12}>
-                    <Link to='/addExercise'>Add a New Exercise</Link>
+                    <Button>
+                        <Link to='/addExercise'>Add a New Exercise <ArrowRightOutlined /></Link>
+                    </Button>
                 </Col>
             </Row>
-            <ul>
+            <ul style={{ padding: '24px', paddingTop: '0px', listStyle: 'none' }}>
                 {exercises.map(ex => <li key={ex._id}>{ex.description}</li>)}
             </ul>
         </>
