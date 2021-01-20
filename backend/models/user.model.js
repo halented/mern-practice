@@ -13,6 +13,7 @@ const userSchema = new Schema({
     timestamps: true
 })
 
+// is this line migrating to the DB?
 const User = mongoose.model('User', userSchema)
 
 module.exports = User

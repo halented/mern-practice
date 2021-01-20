@@ -12,4 +12,5 @@ const exerciseSchema = new Schema({
 
 const Exercise = mongoose.model('Exercise', exerciseSchema)
 
+// module.exports is from Nodejs
 module.exports = Exercise
