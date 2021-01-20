@@ -21,16 +21,16 @@ const layout = {
 };
 
 
-function AddExercise(props) {
+function AddOrEdit(props) {
 
     const [form] = Form.useForm()
     const history = useHistory()
 
-    const submitForm = (ev) => {
+    const formatAndSubmit = (ev) => {
         // convert the date for mongodb
         ev.date = ev.date.format()
         // send it off & hope for the best
-        props.saveNewExercise(ev)
+        props.submitForm(ev)
     }
 
     const updateForm = (eventInfo) => {
@@ -59,22 +59,27 @@ function AddExercise(props) {
         }
     }
 
+    const title = () => {
+        return props.selectedExercise ? `Editing ${props.selectedExercise.description}` : "Add New Exercise"
+    }
+
     return (
         <>
             <PageHeader
                 className="site-page-header"
                 onBack={() => history.push('/')}
-                title="Add New Exercise"
+                title={title()}
                 subTitle="Please fill out all fields"
             />
             <Form
                 {...layout}
-                onFinish={(ev) => submitForm(ev)}
+                onFinish={(ev) => formatAndSubmit(ev)}
                 label="Add Exercise"
                 form={form}
                 className='form'>
                 <Form.Item
                     name='description'
+                    value='HELLO?'
                     onChange={updateForm}
                     label='description'
                     rules={[
@@ -128,4 +133,4 @@ function AddExercise(props) {
     )
 }
 
-export default AddExercise
+export default AddOrEdit

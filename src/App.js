@@ -1,8 +1,7 @@
 import './App.css';
 import AddUser from './comps/addUser'
-import AddExercise from './comps/addExercise'
+import AddOrEdit from './comps/addOrEdit'
 import Home from './comps/home'
-import EditExercise from './comps/editExercise';
 import { useState, useEffect } from 'react'
 import { Switch, Route, useHistory, withRouter } from 'react-router-dom'
 
@@ -69,6 +68,10 @@ function App() {
     history.push(`/edit/${exercise._id}`)
   }
 
+  const submitEdits = (exercise) => {
+
+  }
+
   return (
     <>
       <Switch>
@@ -76,10 +79,17 @@ function App() {
           <AddUser saveNewUser={saveNewUser} />
         </Route>
         <Route path='/addExercise'>
-          <AddExercise saveNewExercise={saveNewExercise} users={users} />
+          <AddOrEdit
+            submitForm={saveNewExercise}
+            users={users}
+          />
         </Route>
         <Route path='/edit/:id'>
-          <EditExercise exercise={selectedExercise} />
+          <AddOrEdit
+            selectedExercise={selectedExercise}
+            submitForm={submitEdits}
+            users={users}
+          />
         </Route>
         <Route path='/'>
           <Home
