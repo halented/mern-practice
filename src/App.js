@@ -68,8 +68,18 @@ function App() {
     history.push(`/edit/${exercise._id}`)
   }
 
-  const submitEdits = (exercise) => {
-
+  const saveEdits = (exercise, id) => {
+    fetch(`${BASE_URL}/exercises/update/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": 'application/json',
+        "Accept": 'application/json'
+      },
+      body: JSON.stringify(exercise)
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      // .catch(err => console.log(err))
   }
 
   return (
@@ -87,7 +97,7 @@ function App() {
         <Route path='/edit/:id'>
           <AddOrEdit
             selectedExercise={selectedExercise}
-            submitForm={submitEdits}
+            submitForm={saveEdits}
             users={users}
           />
         </Route>

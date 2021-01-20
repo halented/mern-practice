@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Form,
     Input,
@@ -9,6 +9,7 @@ import {
     PageHeader
 } from 'antd';
 import { useHistory } from 'react-router-dom'
+
 
 const { Option } = Select
 const layout = {
@@ -22,15 +23,28 @@ const layout = {
 
 
 function AddOrEdit(props) {
-
     const [form] = Form.useForm()
     const history = useHistory()
+
+    useEffect(() => {
+        if (props.selectedExercise) {
+            form.setFieldsValue({
+                username: props.selectedExercise.username,
+                description: props.selectedExercise.description,
+                duration: props.selectedExercise.duration
+            })
+        }
+    })
 
     const formatAndSubmit = (ev) => {
         // convert the date for mongodb
         ev.date = ev.date.format()
-        // send it off & hope for the best
-        props.submitForm(ev)
+
+        // send along the ID if it's an edit, otherwise just the new data
+        props.selectedExercise ?
+            props.submitForm(ev, props.selectedExercise._id)
+            :
+            props.submitForm(ev)
     }
 
     const updateForm = (eventInfo) => {
@@ -79,7 +93,6 @@ function AddOrEdit(props) {
                 className='form'>
                 <Form.Item
                     name='description'
-                    value='HELLO?'
                     onChange={updateForm}
                     label='description'
                     rules={[
