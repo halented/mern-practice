@@ -29,8 +29,8 @@ function AddOrEdit(props) {
     const history = useHistory()
 
     useEffect(() => {
-        const { username, description, duration, date } = props.selectedExercise
         if (props.selectedExercise) {
+            const { username, description, duration, date } = props.selectedExercise
             form.setFieldsValue({
                 username: username,
                 description: description,
