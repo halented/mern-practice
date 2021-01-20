@@ -6,7 +6,8 @@ import {
     DatePicker,
     Select,
     InputNumber,
-    PageHeader
+    PageHeader,
+    Popconfirm
 } from 'antd';
 import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom'
@@ -148,9 +149,18 @@ function AddOrEdit(props) {
                     {" "}
                     {
                         props.selectedExercise ?
-                            <Button onClick={()=>props.deleteExercise(props.selectedExercise)} danger>
-                                Delete <DeleteOutlined />
-                            </Button>
+                            <>
+                                <Popconfirm
+                                    title="Are you sure you'd like to delete this exercise?"
+                                    onConfirm={() => props.deleteExercise(props.selectedExercise)}
+                                    onCancel={null}
+                                    okText="Yes"
+                                    cancelText="No">
+                                    <Button danger>
+                                        Delete <DeleteOutlined />
+                                    </Button>
+                                </Popconfirm>
+                            </>
                             :
                             null
                     }

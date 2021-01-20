@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, PageHeader, Button, Alert } from 'antd'
+import { Row, Col, PageHeader, Button, Alert, Popconfirm, message } from 'antd'
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom'
 
@@ -12,7 +12,8 @@ function Home({ exercises, users, alert, sendClickedExercise, deleteExercise }) 
                 subTitle="When you're here, you're fu-"
             />
             <Row>
-                {alert ? <Alert message="Success" type='success' /> : null}
+                {/* alert is buggy bc the component renders several times & also it doesn't clear. this way of handling it aint gr8 */}
+                {alert ? message.success("Success") : null}
             </Row>
             <Row>
                 <Col span={12}>
