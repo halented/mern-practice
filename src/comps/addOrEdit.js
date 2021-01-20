@@ -9,6 +9,8 @@ import {
     PageHeader
 } from 'antd';
 import { useHistory } from 'react-router-dom'
+import * as moment from 'moment';
+
 
 
 const { Option } = Select
@@ -27,11 +29,13 @@ function AddOrEdit(props) {
     const history = useHistory()
 
     useEffect(() => {
+        const { username, description, duration, date } = props.selectedExercise
         if (props.selectedExercise) {
             form.setFieldsValue({
-                username: props.selectedExercise.username,
-                description: props.selectedExercise.description,
-                duration: props.selectedExercise.duration
+                username: username,
+                description: description,
+                duration: duration,
+                date: moment(date)
             })
         }
     })

@@ -42,7 +42,7 @@ function Home({ exercises, users, alert, sendClickedExercise }) {
                                 <li
                                     key={ex._id}
                                     className='spoofLink'
-                                    onClick={()=>sendClickedExercise(ex)}>
+                                    onClick={() => sendClickedExercise(ex)}>
                                     {ex.description}
                                 </li>
                             )
