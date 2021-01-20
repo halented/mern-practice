@@ -81,6 +81,19 @@ function App() {
       .then(data => console.log(data))
   }
 
+  const deleteExercise = (exercise) => {
+    fetch(`${BASE_URL}/exercises/${exercise._id}`, {
+      method: "DELETE"
+    })
+      .then(res => res.json())
+      .then(data=>{
+        let newGroup = exercises.filter(ex=> ex._id !== exercise._id)
+        changeExercises(newGroup)
+        changeAlert(true)
+        history.push('/')
+      })
+  }
+
   return (
     <>
       <Switch>
@@ -96,6 +109,7 @@ function App() {
         <Route path='/edit/:id'>
           <AddOrEdit
             selectedExercise={selectedExercise}
+            deleteExercise={deleteExercise}
             submitForm={saveEdits}
             users={users}
           />

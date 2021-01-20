@@ -8,6 +8,7 @@ import {
     InputNumber,
     PageHeader
 } from 'antd';
+import { DeleteOutlined, FormOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom'
 import * as moment from 'moment';
 
@@ -142,8 +143,17 @@ function AddOrEdit(props) {
                 </Form.Item>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                     <Button type='primary' htmlType='submit'>
-                        Submit
-                </Button>
+                        Submit <FormOutlined />
+                    </Button>
+                    {" "}
+                    {
+                        props.selectedExercise ?
+                            <Button onClick={()=>props.deleteExercise(props.selectedExercise)} danger>
+                                Delete <DeleteOutlined />
+                            </Button>
+                            :
+                            null
+                    }
                 </Form.Item>
             </Form>
         </>
