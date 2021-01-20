@@ -78,7 +78,18 @@ function App() {
       body: JSON.stringify(exercise)
     })
       .then(res => res.json())
-      .then(data => console.log(data))
+      .then(data => {
+        // find exercise in state and replace it
+        let newGroup = [...exercises].map(ex=>{
+          if(ex._id === id){
+            return data
+          }
+          else return ex
+        })
+        changeAlert(true)
+        changeExercises(newGroup)
+        history.push('/')
+      })
   }
 
   const deleteExercise = (exercise) => {
